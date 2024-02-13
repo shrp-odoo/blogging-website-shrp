@@ -2,7 +2,7 @@
 from odoo import models, fields
 
 class tags(models.Model):
-    _name = "custom.tag"
+    _name = 'custom.tag'
     _description = 'custom tags'
 
     name = fields.Char(string='Name', required=True)
