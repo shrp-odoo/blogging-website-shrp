@@ -6,4 +6,5 @@ class tags(models.Model):
     _description = 'custom tags'
 
     name = fields.Char(string='Name', required=True)
+    color = fields.Integer(string="Color")
     blogs_ids = fields.Many2many('custom.blog', string='Blogs')

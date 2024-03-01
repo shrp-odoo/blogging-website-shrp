@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <!-- Action-->
+    <record id="custom_blog_action" model="ir.actions.act_window">
+        <field name="name">Blogs Action</field>
+        <field name="res_model">custom.blog</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_filter_saved': 1}</field>
+    </record>
+
+    <!--List
+    View-->
+    <record id="custom_blog_view_tree" model="ir.ui.view">
+        <field name="name">custom.blog.view.tree</field>
+        <field name="model">custom.blog</field>
+        <field name="arch" type="xml">
+            <tree string="All Blogs">
+                <field name="title" />
+                <field name="category"/>
+                <field name="published_date" />
+                <field name="status" />
+                <field name="tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="likes_count" />
+                <field name="dislikes_count" />
+            </tree>
+        </field>
+    </record>
+
+    <!--Form
+    View-->
+    <record id="custom_blog_view_form" model="ir.ui.view">
+        <field name="name">custom_blog.view.form</field>
+        <field name="model">custom.blog</field>
+        <field name="arch" type="xml">
+            <form string="All Blogs">
+                <header>
+                    <button name="action_save" type="object" class="oe_highlight" string="Save" invisible="status == 'published'"/>
+                    <button name="action_published" type="object" class="oe_highlight"
+                        string="Published" />
+
+                    <field name="status" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="o_field_widget o_field_image oe_avatar">
+                        <div class="d-inline-block position-relative">
+                            <div class="d-flex justify-content-between w-100 bottom-0">
+                                <field name="image" widget="image" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="oe_title my-3">
+                        <h1>
+                            <field name="title" placeholder="Blogs title" />
+                        </h1>
+                        <field name="tags" widget="many2many_tags" class="mt-2" options="{'color_field': 'color'}" />
+
+                    </div>
+                    <group col="12">
+                        <group colspan="6">
+                            <button name="action_like" type="object" string="Like"
+                                class="btn-primary" />
+                        </group>
+                        <group colspan="6">
+                            <button name="action_dislike" type="object" string="Dislike"
+                                class="btn-danger" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <group>
+                                <field name="content" />
+                                <field name="category"/>
+                                <field name="published_date" />
+                                <field name="likes_count" />
+                                <field name="dislikes_count" />
+                            </group>
+                        </page>
+                        <page string="Comments">
+                                <field name="comments_ids">
+                                    <tree>
+                                        <field name="comment" />
+                                    </tree>
+                                </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Search View-->
+    <record id="custom_blog_view_search" model="ir.ui.view">
+        <field name="name">custom.blog.view.search</field>
+        <field name="model">custom.blog</field>
+        <field name="arch" type="xml">
+            <search string="Blogs">
+                <field name="title" string="Title" />
+                <field name="category" string="Blogs Category"/>
+                <filter string="Draft Blogs" name="filter_draft" domain="[('status', '=', 'draft')]" />
+                <filter string="Saved Blogs" name="filter_saved" domain="[('status', '=', 'save')]" />
+                <filter string="Published Blogs" name="filter_published"
+                    domain="[('status', '=', 'published')]" />
+            </search>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <menuitem id="blogs_menu_root" name="Blogging">
+        <menuitem id="main_menu" name="Blogs">
+            <menuitem id="sub_menu_action" name="All Blogs" action="custom_blog_action"/>
+        </menuitem>
+        <menuitem id="about_blogs_menu" name="About Blogs"> 
+            <menuitem id="about_blog_tagmenu_action" name="Custom Tags" action="custom_tag_action" />
+            <menuitem id="about_blog_commentmenu_action" name="Custom Comments" action="custom_comment_action"/>
+        </menuitem>
+    </menuitem>
+</odoo>

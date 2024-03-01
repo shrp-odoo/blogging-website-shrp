@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 
-from . import blogs
+from . import custom_blog
 from . import user
-from . import tags
-from . import subscription
+from . import blogs_tags
+from . import blogs_comment
