@@ -16,6 +16,7 @@
         'views/custom_blogs_tags.xml',
         'views/custom_blogs_comment.xml',
         'views/custom_blogs_menus.xml',
+        'views/author_view.xml',
     ],
     'license': 'OEEL-1',
     'version': '1.0',

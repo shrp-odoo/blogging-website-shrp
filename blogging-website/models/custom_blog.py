@@ -23,6 +23,7 @@ class CustomBlog(models.Model):
         string='Category'
     )
     comments_ids = fields.One2many('custom.blog.comment', inverse_name='custom_blog_id')
+    author_ids = fields.Many2one('res.users', string='Authors')
 
     def action_save(self):
         for blog in self:

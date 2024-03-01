@@ -5,37 +5,36 @@
     <record id="custom_blog_action" model="ir.actions.act_window">
         <field name="name">Blogs Action</field>
         <field name="res_model">custom.blog</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="context">{'search_default_filter_saved': 1}</field>
     </record>
 
-    <!--List
-    View-->
+    <!--List View-->
     <record id="custom_blog_view_tree" model="ir.ui.view">
         <field name="name">custom.blog.view.tree</field>
         <field name="model">custom.blog</field>
         <field name="arch" type="xml">
             <tree string="All Blogs">
                 <field name="title" />
-                <field name="category"/>
+                <field name="category" />
                 <field name="published_date" />
                 <field name="status" />
-                <field name="tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="tags" widget="many2many_tags" options="{'color_field': 'color'}" />
                 <field name="likes_count" />
                 <field name="dislikes_count" />
             </tree>
         </field>
     </record>
 
-    <!--Form
-    View-->
+    <!--Form View-->
     <record id="custom_blog_view_form" model="ir.ui.view">
         <field name="name">custom_blog.view.form</field>
         <field name="model">custom.blog</field>
         <field name="arch" type="xml">
             <form string="All Blogs">
                 <header>
-                    <button name="action_save" type="object" class="oe_highlight" string="Save" invisible="status == 'published'"/>
+                    <button name="action_save" type="object" class="oe_highlight" string="Save"
+                        invisible="status == 'published'" />
                     <button name="action_published" type="object" class="oe_highlight"
                         string="Published" />
 
@@ -53,35 +52,38 @@
                         <h1>
                             <field name="title" placeholder="Blogs title" />
                         </h1>
-                        <field name="tags" widget="many2many_tags" class="mt-2" options="{'color_field': 'color'}" />
 
                     </div>
                     <group col="12">
                         <group colspan="6">
-                            <button name="action_like" type="object" string="Like"
-                                class="btn-primary" />
+                            <field name="tags" widget="many2many_tags" class="mt-2"
+                                options="{'color_field': 'color'}" />
+                            <field name="author_ids" />
                         </group>
                         <group colspan="6">
+                            <button name="action_like" type="object" string="Like"
+                                class="btn-primary" />
                             <button name="action_dislike" type="object" string="Dislike"
                                 class="btn-danger" />
                         </group>
                     </group>
+
                     <notebook>
                         <page string="Description">
                             <group>
                                 <field name="content" />
-                                <field name="category"/>
+                                <field name="category" />
                                 <field name="published_date" />
                                 <field name="likes_count" />
                                 <field name="dislikes_count" />
                             </group>
                         </page>
                         <page string="Comments">
-                                <field name="comments_ids">
-                                    <tree>
-                                        <field name="comment" />
-                                    </tree>
-                                </field>
+                            <field name="comments_ids">
+                                <tree>
+                                    <field name="comment" />
+                                </tree>
+                            </field>
                         </page>
                     </notebook>
                 </sheet>
@@ -97,12 +99,53 @@
         <field name="arch" type="xml">
             <search string="Blogs">
                 <field name="title" string="Title" />
-                <field name="category" string="Blogs Category"/>
+                <field name="category" string="Blogs Category" />
                 <filter string="Draft Blogs" name="filter_draft" domain="[('status', '=', 'draft')]" />
                 <filter string="Saved Blogs" name="filter_saved" domain="[('status', '=', 'save')]" />
                 <filter string="Published Blogs" name="filter_published"
                     domain="[('status', '=', 'published')]" />
             </search>
+        </field>
+    </record>
+
+    <!--Kanban View-->
+    <record id="custom_blog_kanban_view" model="ir.ui.view">
+        <field name="name">custom.blog.kanba.view</field>
+        <field name="model">custom.blog</field>
+        <field name="arch" type="xml">
+            <kanban string="Blogs" editable="top" default_group_by="status">
+                <template>
+                    <t t-name="kanban-view"></t>
+                </template>
+                <template>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <field name="image"
+                                class="d-flex align-items-center justify-content-center"
+                                widget="image" />
+                            <div class="or_kanban_content p-2">
+                                <h2>
+                                    <field name="title" />
+                                </h2>
+                                <field name="tags" options="{'color_field':'color'}"></field>
+                                <field name="status"></field>
+                                <p class="my-0">
+                                    <b>Likes : </b>
+                                    <field name="likes_count" />
+                                </p>
+                                <p class="my-0">
+                                    <b>Dislikes : </b>
+                                    <field name="dislikes_count" />
+                                </p>
+                                <p>
+                                    <b>Publish Date : </b>
+                                    <field name="published_date" />
+                                </p>
+                            </div>
+                        </div>
+                    </t>
+                </template>
+            </kanban>
         </field>
     </record>
 </odoo>
