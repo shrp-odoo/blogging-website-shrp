@@ -5,7 +5,7 @@
     <record id="custom_blog_action" model="ir.actions.act_window">
         <field name="name">Blogs Action</field>
         <field name="res_model">custom.blog</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">tree,form,kanban,graph,gantt</field>
         <field name="context">{'search_default_filter_saved': 1}</field>
     </record>
 
@@ -91,6 +91,48 @@
         </field>
     </record>
 
+    <!--Graph View-->
+    <record id="custom_blog_view_graph" model="ir.ui.view">
+        <field name="name">custom_blog.view.graph</field>
+        <field name="model">custom.blog</field>
+        <field name="arch" type="xml">
+            <graph string="Blogs">
+                <field name="published_date"/>
+            </graph>
+        </field>
+    </record>
+
+    <!--Gantt View-->
+    <record id="custom_blog_view_gantt" model="ir.ui.view">
+        <field name="name">custom.blog.gantt.view</field>
+        <field name="model">custom.blog</field>
+        <field name="arch" type="xml">
+            <gantt
+                date_stop="end_date"
+                date_start="start_date"
+                string="Blogs"
+                decoration-info="status == 'save'"
+                decoration-success="status == 'published'"
+                color="id"
+                default_group_by="likes_count"
+            >
+                <field name="status"/>
+                <field name="category"/>
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row g-0">
+                            <div class="col">
+                                <ul class="ps-1 mb-0 list-unstyled">
+                                    <li><strong>Blogs Category: </strong><t t-esc="category"/></li>
+                                    <li><strong>Blogs Status: </strong><t t-esc="status"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record>
 
     <!-- Search View-->
     <record id="custom_blog_view_search" model="ir.ui.view">

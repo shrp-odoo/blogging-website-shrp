@@ -2,3 +2,4 @@
 "access_custom_blog","access_custom_blog","model_custom_blog","base.group_user",1,1,1,1
 "access_custom_tag","access_custom_tag","model_custom_tag","base.group_user",1,1,1,1
 "access_custom_blog_comment","access_custom_blog_comment","model_custom_blog_comment","base.group_user",1,1,1,1
+"access_blogs_add_offer","access_blogs_add_offer","model_blogs_add_offer","base.group_user",1,1,1,1

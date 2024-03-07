@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="blogs_add_offer_view_form" model="ir.ui.view">
+        <field name="name">blogs.add.offer.view.form</field>
+        <field name="model">blogs.add.offer</field>
+        <field name="arch" type="xml">
+            <form strin="Add Offer">
+                <group class="oe_title">
+                    <field name="comment"/>
+                </group>
+                <footer>
+                    <button name="action_like_selected_blogs" string="Submit" class="btn-primary" type="object"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_blogs_add_offer" model="ir.actions.act_window">
+        <field name="name">Add Offer</field>
+        <field name="res_model">blogs.add.offer</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="blogs_add_offer_view_form" />
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="model_custom_blog"/>
+        <field name="binding_view_types">list</field>
+    </record>
+</odoo>
