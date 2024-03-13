@@ -72,6 +72,7 @@
                         <page string="Description">
                             <group>
                                 <field name="content" />
+                                <field name="url"/>
                                 <field name="category" />
                                 <field name="published_date" />
                                 <field name="likes_count" />

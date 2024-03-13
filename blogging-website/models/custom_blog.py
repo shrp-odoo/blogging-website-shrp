@@ -15,6 +15,7 @@ class CustomBlog(models.Model):
     image = fields.Image(string='Upload Images')
     likes_count = fields.Integer(string='Likes')
     dislikes_count = fields.Integer(string='Dislikes')
+    url = fields.Char(string='URL', compute='_compute_url', store=True)
     status = fields.Selection(
         selection=[("draft", "Draft"), ("save", "Save"), ("published", "Published")],
         default="draft"
@@ -28,13 +29,23 @@ class CustomBlog(models.Model):
     start_date = fields.Date(string="Start Date", compute="_compute_start_end_date", store=True)
     end_date = fields.Date(string="End Date", compute="_compute_start_end_date", store=True)
 
-    @api.depends("create_date")
+    # @api.depends("create_date")
+    # def _compute_start_end_date(self):
+    #         for record in self:
+    #             start_date = record.published_date
+    #             end_date = fields.Datetime.from_string(start_date) + timedelta(days=7)
+    #             record.start_date = start_date
+    #             record.end_date = end_date
+    @api.depends('published_date')
     def _compute_start_end_date(self):
-            for record in self:
-                start_date = record.published_date
-                end_date = fields.Datetime.from_string(start_date) + timedelta(days=7)
-                record.start_date = start_date
-                record.end_date = end_date
+        for blog in self:
+            blog.start_date = blog.published_date
+            blog.end_date = blog.published_date + timedelta(days=7)
+
+    @api.depends('title')
+    def _compute_url(self):
+        for blog in self:
+            blog.url = f"http://localhost:8069/blogs/{blog.title}"
 
     @api.depends('content', 'title')
     def _compute_display_name(self):
